@@ -1,0 +1,79 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/catogriesFragment2">
+
+    <fragment
+        android:id="@+id/catogriesFragment2"
+        android:name="com.iti_project.recipeapp.CatogriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_catogries" >
+        <action
+            android:id="@+id/action_catogriesFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="Category"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.iti_project.recipeapp.HomeFragment"
+        android:label="Choose your meal"
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="Category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" >
+            <argument
+                android:name="Meal_ID"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_aboutTheCreatorFragment"
+            app:destination="@id/aboutTheCreatorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.iti_project.recipeapp.FavoriteFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+        <argument
+            android:name="Meal_ID"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.iti_project.recipeapp.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
+        <argument
+            android:name="Meal_ID"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.iti_project.recipeapp.RecipeDetailFragment"
+        android:label="Recipe Detail"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="Meal_ID"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutTheCreatorFragment"
+        android:name="com.iti_project.recipeapp.AboutTheCreatorFragment"
+        android:label="fragment_about_the_creator"
+        tools:layout="@layout/fragment_about_the_creator" />
+</navigation>

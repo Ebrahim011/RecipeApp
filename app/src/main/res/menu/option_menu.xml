@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/sign_out"
+        android:id="@+id/action_sign_out"/>
+
+    <item android:title="@string/about_the_creator"
+        android:id="@+id/action_about_the_creator"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+</menu>

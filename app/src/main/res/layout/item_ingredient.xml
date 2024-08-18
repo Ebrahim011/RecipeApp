@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="148dp"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:weightSum="2"
+    android:layout_marginHorizontal="15dp"
+    android:gravity="center"
+    android:background="@drawable/ingredient_card_background">
+
+    <TextView
+        android:id="@+id/ingredientName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/ingredientMeasure"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+</LinearLayout>
