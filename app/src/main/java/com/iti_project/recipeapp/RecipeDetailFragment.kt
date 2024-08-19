@@ -3,24 +3,35 @@ package com.iti_project.recipeapp
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iti_project.recipeapp.RoomFolder.UserViewModel
 import com.iti_project.recipeapp.viewmodel.MealViewModel
 
-class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
+class RecipeDetailFragment : Fragment() {
     private val args: RecipeDetailFragmentArgs by navArgs()
     private val mealViewModel: MealViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_recipe_detail, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +42,9 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         val mealArea: TextView = view.findViewById(R.id.mealArea)
         val mealInstructions: TextView = view.findViewById(R.id.mealInstructions)
         val ingredientsRecyclerView: RecyclerView = view.findViewById(R.id.ingredientsRecyclerView)
-        val favCheckBox = view.findViewById<CheckBox>(R.id.favoriteCheckBox)
+        val webView: WebView = view.findViewById(R.id.webView)
+        val webSettings: WebSettings = webView.settings
+        val favCheckBox: CheckBox = view.findViewById(R.id.favoriteCheckBox)
         ingredientsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         mealViewModel.mealDetails.observe(viewLifecycleOwner, Observer { mealDetailsResponse ->
@@ -42,6 +55,13 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             mealCategory.text = meal.strCategory
             mealArea.text = meal.strArea
             mealInstructions.text = meal.strInstructions
+
+            webSettings.javaScriptEnabled = true
+            webView.webViewClient = WebViewClient()
+
+            // Convert the YouTube URL to the embed format
+            val youtubeVideoUrl = meal.strYoutube.replace("watch?v=", "embed/")
+            webView.loadUrl(youtubeVideoUrl)
 
             val ingredients = listOf(
                 meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4,
@@ -61,6 +81,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         })
 
         mealViewModel.fetchMealDetailsById(args.MealID)
+
 
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", -1)
@@ -86,5 +107,6 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
                 Toast.makeText(requireContext(), "User ID not found", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+        }
+
 }
