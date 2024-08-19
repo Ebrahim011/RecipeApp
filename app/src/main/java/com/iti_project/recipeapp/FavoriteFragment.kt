@@ -1,59 +1,71 @@
 package com.iti_project.recipeapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.iti_project.recipeapp.RoomFolder.UserViewModel
+import com.iti_project.recipeapp.mealCatogry.Meal
+import com.iti_project.recipeapp.viewmodel.MealViewModel
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FavoriteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
+    private val userViewModel: UserViewModel by viewModels()
+    private val mealViewModel: MealViewModel by viewModels()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var favoriteAdapter: FavoriteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recyclerViewFav)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        favoriteAdapter = FavoriteAdapter(emptyList(),this)
+        recyclerView.adapter = favoriteAdapter
+
+        val userId = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getInt("userId", -1)
+        if (userId != -1) {
+            userViewModel.getFavorites(userId)
+            userViewModel.favorites.observe(viewLifecycleOwner) { favList ->
+                fetchFavoriteMeals(favList)
             }
+        }
+    }
+
+    private fun fetchFavoriteMeals(favList: List<Int>) {
+        val mealSet = mutableSetOf<Meal>()
+        for (mealId in favList) {
+            mealViewModel.fetchMealDetailsById(mealId.toString())
+        }
+        mealViewModel.mealDetails.observe(viewLifecycleOwner, Observer { mealDetailsResponse ->
+            val mealFD = mealDetailsResponse.meals.firstOrNull()
+            if (mealFD != null) {
+                val meal=Meal(mealFD.idMeal,mealFD.strMeal,mealFD.strMealThumb)
+                mealSet.add(meal)
+                favoriteAdapter.updateMeals(mealSet.toList())
+            }
+        })
+    }
+
+    override fun onItemClick(meal: Meal) {
+        val action = FavoriteFragmentDirections.actionFavoriteFragmentToRecipeDetailFragment(meal.idMeal)
+        findNavController().navigate(action)
     }
 }
+
+
+

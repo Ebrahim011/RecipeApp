@@ -1,14 +1,19 @@
 package com.iti_project.recipeapp.RoomFolder
 
 import android.app.Application
+import android.content.Context.MODE_PRIVATE
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.Repo.UserRepository
-import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.Converters
+import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -25,45 +30,68 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val favorites: LiveData<List<Int>> get() = _favorites
 
     fun getFavorites(userId: Int) {
-        viewModelScope.launch {
-            val favoritesString = userRepository.getFavorites(userId).value
+        viewModelScope.launch(Dispatchers.IO) {
+            val favoritesString = userRepository.getFavorites(userId)
             _favorites.postValue(Converters().toListOfInt(favoritesString ?: ""))
         }
     }
 
-    fun updateFavorites(userId: Int, favorites: List<Int>) {
-        viewModelScope.launch {
-            val favoritesString = Converters().fromListOfInt(favorites)
-            userRepository.updateFavorites(userId, favoritesString)
-            _favorites.postValue(favorites) // Update the LiveData after updating the database
+    fun getFavoritesAsList(userId: Int): List<Int> {
+        return Converters().toListOfInt(userRepository.getFavorites(userId) ?: "")
+    }
+
+    fun addFavorite(userId: Int, mealId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getFavorites(userId)
+            val currentFavorites = _favorites.value?.toMutableList() ?: mutableListOf()
+            if (!currentFavorites.contains(mealId)) {
+                currentFavorites.add(mealId)
+                val favoritesString = Converters().fromListOfInt(currentFavorites)
+                userRepository.updateFavorites(userId, favoritesString)
+                _favorites.postValue(currentFavorites)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(getApplication(), "Added to favorites $mealId", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-
+    fun removeFavorite(userId: Int, mealId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentFavorites = _favorites.value?.toMutableList() ?: mutableListOf()
+            if (currentFavorites.contains(mealId)) {
+                currentFavorites.remove(mealId)
+                val favoritesString = Converters().fromListOfInt(currentFavorites)
+                userRepository.updateFavorites(userId, favoritesString)
+                _favorites.postValue(currentFavorites)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(getApplication(), "Removed from favorites $mealId", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     fun checkIfEmailExists(email: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _emailExists.postValue(userRepository.checkIfEmailExists(email))
         }
     }
 
     fun getPasswordByEmail(email: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _password.postValue(userRepository.getPasswordByEmail(email))
         }
     }
 
     fun getUserId(email: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _userId.postValue(userRepository.getUserId(email))
         }
     }
 
     fun addAccount(user: User) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             userRepository.addAccount(user)
         }
     }
-
-
 }

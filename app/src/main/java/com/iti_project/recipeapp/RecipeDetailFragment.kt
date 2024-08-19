@@ -16,11 +16,14 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iti_project.recipeapp.RoomFolder.UserViewModel
 import com.iti_project.recipeapp.viewmodel.MealViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RecipeDetailFragment : Fragment() {
     private val args: RecipeDetailFragmentArgs by navArgs()
@@ -85,28 +88,27 @@ class RecipeDetailFragment : Fragment() {
 
         val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", -1)
-        if (userId != -1) {
-            userViewModel.getFavorites(userId)
-            userViewModel.favorites.observe(viewLifecycleOwner, Observer { favorites ->
-                val favoriteList = favorites ?: emptyList()
-                favCheckBox.isChecked = favoriteList.contains(args.MealID.toInt())
-            })
-        }
+
+        userViewModel.getFavorites(userId) // Ensure favorites are fetched
+
+        userViewModel.favorites.observe(viewLifecycleOwner, Observer { favList ->
+            if (args.MealID.toInt() in favList) {
+                favCheckBox.isChecked = true
+            }
+        })
 
         favCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if (userId != -1) {
-                userViewModel.favorites.value?.let { favorites ->
-                    val updatedFavorites = if (isChecked) {
-                        favorites + args.MealID.toInt()
-                    } else {
-                        favorites - args.MealID.toInt()
-                    }
-                    userViewModel.updateFavorites(userId, updatedFavorites)
+            if (isChecked) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    userViewModel.addFavorite(userId, args.MealID.toInt())
                 }
+
             } else {
-                Toast.makeText(requireContext(), "User ID not found", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    userViewModel.removeFavorite(userId, args.MealID.toInt())
+                }
+
             }
         }
-        }
-
+    }
 }

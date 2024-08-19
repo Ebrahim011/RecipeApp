@@ -15,5 +15,5 @@ data class User(
     @ColumnInfo(name = "user_email") val userEmail: String?,
     @ColumnInfo(name = "user_password") val userPassword: String?,
     @ColumnInfo(name = "user_name") val userName: String?,
-    @ColumnInfo(name = "list_of_favorites") val listOfFavorites: String
+    @ColumnInfo(name = "list_of_favorites") var listOfFavorites: String
 ) : Parcelable

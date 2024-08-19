@@ -13,7 +13,7 @@ class Converters {
         return if (data.isEmpty()) {
             emptyList()
         } else {
-            data.split(",").map { it.toInt() }
+            return  data.split(",").map { it.toInt() }
         }
     }
 }

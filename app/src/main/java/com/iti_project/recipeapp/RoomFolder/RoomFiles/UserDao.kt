@@ -7,7 +7,7 @@ import androidx.room.*
 interface UserDao {
 
  @Query("SELECT list_of_favorites FROM user WHERE _id = :userId")
- fun getFavorites(userId: Int): LiveData<String>
+ fun getFavorites(userId: Int): String
 
  @Query("SELECT EXISTS(SELECT 1 FROM user WHERE user_email = :email)")
  fun checkIfEmailExists(email: String): Boolean
