@@ -1,4 +1,4 @@
-package com.iti_project.recipeapp.RoomFiles
+package com.iti_project.recipeapp.RoomFolder.RoomFiles
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -15,8 +15,5 @@ data class User(
     @ColumnInfo(name = "user_email") val userEmail: String?,
     @ColumnInfo(name = "user_password") val userPassword: String?,
     @ColumnInfo(name = "user_name") val userName: String?,
-    @ColumnInfo(name = "list_of_favorites") val listOfFavorites: List<Int>
+    @ColumnInfo(name = "list_of_favorites") val listOfFavorites: String
 ) : Parcelable
-
-
-//userViewModel

@@ -1,10 +1,10 @@
-package com.iti_project.recipeapp.RoomFiles.LocalSource
+package com.iti_project.recipeapp.RoomFolder.RoomFiles.LocalSource
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.iti_project.recipeapp.RoomFiles.RoomDataBase
-import com.iti_project.recipeapp.RoomFiles.User
-import com.iti_project.recipeapp.RoomFiles.UserDao
+import com.iti_project.recipeapp.RoomFolder.RoomFiles.RoomDataBase
+import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
+import com.iti_project.recipeapp.RoomFolder.RoomFiles.UserDao
 
 class LocalSource(private val userDao: UserDao) : LocalSourceInterface {
 
@@ -14,15 +14,14 @@ class LocalSource(private val userDao: UserDao) : LocalSourceInterface {
 
         fun getInstance(context: Context): LocalSource {
             return INSTANCE ?: synchronized(this) {
-                val database = RoomDataBase.getInstance(context)
-                val instance = LocalSource(database.getUserDao())
+                val instance = LocalSource(RoomDataBase.getInstance(context).getUserDao())
                 INSTANCE = instance
                 instance
             }
         }
     }
 
-    override fun getFavorites(userId: Int): LiveData<List<Int>> {
+    override fun getFavorites(userId: Int): LiveData<String> {
         return userDao.getFavorites(userId)
     }
 
@@ -34,15 +33,15 @@ class LocalSource(private val userDao: UserDao) : LocalSourceInterface {
         return userDao.getPasswordByEmail(email)
     }
 
-    override fun getUserName(userId: Int): String? {
-        return userDao.getUserName(userId)
+    override fun getUserId(email: String): Int? {
+        return userDao.getUserId(email)
     }
 
     override fun addAccount(user: User) {
         userDao.addAccount(user)
     }
 
-    override fun updateFavorites(userId: Int, favorites: List<Int>) {
+    override fun updateFavorites(userId: Int, favorites: String) {
         userDao.updateFavorites(userId, favorites)
     }
 }
