@@ -27,7 +27,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val userId: LiveData<Int?> get() = _userId
     private val userRepository: UserRepository = UserRepository.getInstance(application)
     private val _favorites = MutableLiveData<List<Int>>()
-    val favorites: LiveData<List<Int>> get() = _favorites
+    val favorites: MutableLiveData<List<Int>> get() = _favorites
 
     fun getFavorites(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,18 +42,20 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addFavorite(userId: Int, mealId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            getFavorites(userId)
+
             val currentFavorites = _favorites.value?.toMutableList() ?: mutableListOf()
             if (!currentFavorites.contains(mealId)) {
                 currentFavorites.add(mealId)
                 val favoritesString = Converters().fromListOfInt(currentFavorites)
                 userRepository.updateFavorites(userId, favoritesString)
                 _favorites.postValue(currentFavorites)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(getApplication(), "Added to favorites $mealId", Toast.LENGTH_SHORT).show()
-                }
+                getFavorites(userId)
+
             }
+
         }
+
+
     }
 
     fun removeFavorite(userId: Int, mealId: Int) {
@@ -64,17 +66,18 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 val favoritesString = Converters().fromListOfInt(currentFavorites)
                 userRepository.updateFavorites(userId, favoritesString)
                 _favorites.postValue(currentFavorites)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(getApplication(), "Removed from favorites $mealId", Toast.LENGTH_SHORT).show()
-                }
+                getFavorites(userId)
             }
         }
+
     }
 
-    fun checkIfEmailExists(email: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _emailExists.postValue(userRepository.checkIfEmailExists(email))
-        }
+    fun checkIfEmailExists(email: String): Boolean {
+ //       viewModelScope.launch(Dispatchers.IO) {
+//            _emailExists.postValue(userRepository.checkIfEmailExists(email))
+
+ //       }
+        return     userRepository.checkIfEmailExists(email)
     }
 
     fun getPasswordByEmail(email: String) {

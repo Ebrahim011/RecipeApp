@@ -101,11 +101,14 @@ class RecipeDetailFragment : Fragment() {
             if (isChecked) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     userViewModel.addFavorite(userId, args.MealID.toInt())
+                    userViewModel.getFavorites(userId)
+
                 }
 
             } else {
                 lifecycleScope.launch(Dispatchers.IO) {
                     userViewModel.removeFavorite(userId, args.MealID.toInt())
+                    userViewModel.getFavorites(userId)
                 }
 
             }

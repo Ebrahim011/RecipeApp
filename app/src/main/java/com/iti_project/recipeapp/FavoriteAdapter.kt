@@ -1,5 +1,6 @@
 package com.iti_project.recipeapp
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class FavoriteAdapter(
     override fun getItemCount(): Int {
         return meals.size
     }
+
 
     fun updateMeals(newMeals: List<Meal>) {
         meals = newMeals

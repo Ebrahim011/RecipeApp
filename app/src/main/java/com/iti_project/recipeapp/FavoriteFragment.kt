@@ -38,11 +38,12 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
         recyclerView.adapter = favoriteAdapter
 
         val userId = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getInt("userId", -1)
-        if (userId != -1) {
-            userViewModel.getFavorites(userId)
+        userViewModel.getFavorites(userId)
             userViewModel.favorites.observe(viewLifecycleOwner) { favList ->
+
                 fetchFavoriteMeals(favList)
-            }
+
+
         }
     }
 
@@ -64,7 +65,10 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     override fun onItemClick(meal: Meal) {
         val action = FavoriteFragmentDirections.actionFavoriteFragmentToRecipeDetailFragment(meal.idMeal)
         findNavController().navigate(action)
+
     }
+
+
 }
 
 
