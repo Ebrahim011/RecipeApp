@@ -72,13 +72,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun checkIfEmailExists(email: String): Boolean {
- //       viewModelScope.launch(Dispatchers.IO) {
-//            _emailExists.postValue(userRepository.checkIfEmailExists(email))
-
- //       }
-        return     userRepository.checkIfEmailExists(email)
+    fun checkIfEmailExists(email: String) {
+       viewModelScope.launch(Dispatchers.IO) {
+          _emailExists.postValue(userRepository.checkIfEmailExists(email))
+       }
     }
+    fun checkIfEmailExistsBoolean(email: String):Boolean {
+    return userRepository.checkIfEmailExists(email)}
 
     fun getPasswordByEmail(email: String) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -47,7 +47,7 @@ class RegisterFragment : Fragment() {
             var userName = binding.etUserName.text.toString()
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                if(userViewModel.checkIfEmailExists(email)){
+                if(userViewModel.checkIfEmailExistsBoolean(email)){
                     Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
                     binding.etRegisterEmail.text.clear()
                     binding.etRegisterPassword.text.clear()
@@ -60,27 +60,8 @@ class RegisterFragment : Fragment() {
                         listOfFavorites = ""
                     )
                     userViewModel.addAccount(user)
-
-                    userViewModel.getUserId(email)
-                    userViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
-                        if (userId != null) {
-                            val editor = sharedPreferences.edit()
-                            editor.putInt("userId", userId)
-                            editor.apply()
-                            Toast.makeText(
-                                requireContext(),
-                                "Registered successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Registration failed",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })}}
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }}
                     else {
                         Toast.makeText(
                             requireContext(),
