@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iti_project.recipeapp.mealCatogry.Meal
@@ -31,7 +32,7 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         val category:String = args.Category
         recyclerView = view.findViewById(R.id.recyclerViewHome)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         homeAdapter = HomeAdapter(emptyList(), this)
         recyclerView.adapter = homeAdapter
 

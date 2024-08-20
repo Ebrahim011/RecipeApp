@@ -35,7 +35,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
 
         searchEditText = view.findViewById(R.id.searchEditText)
         recyclerView = view.findViewById(R.id.recyclerViewSearch)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         searchAdapter = SearchAdapter(emptyList(), this)
         recyclerView.adapter = searchAdapter
 
