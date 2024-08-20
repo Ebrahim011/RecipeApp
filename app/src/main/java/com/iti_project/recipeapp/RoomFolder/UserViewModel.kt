@@ -1,13 +1,7 @@
 package com.iti_project.recipeapp.RoomFolder
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.Repo.UserRepository
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.Converters
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
@@ -27,22 +21,22 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val userId: LiveData<Int?> get() = _userId
     private val userRepository: UserRepository = UserRepository.getInstance(application)
     private val _favorites = MutableLiveData<List<Int>>()
-    val favorites: MutableLiveData<List<Int>> get() = _favorites
+    val favorites: LiveData<List<Int>> get() = _favorites
 
     fun getFavorites(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val favoritesString = userRepository.getFavorites(userId)
-            _favorites.postValue(Converters().toListOfInt(favoritesString ?: ""))
+            withContext(Dispatchers.Main) {
+                favoritesString.observeForever { string ->
+                    val favoritesList = Converters().toListOfInt(string)
+                    _favorites.postValue(favoritesList)
+                }
+            }
         }
-    }
-
-    fun getFavoritesAsList(userId: Int): List<Int> {
-        return Converters().toListOfInt(userRepository.getFavorites(userId) ?: "")
     }
 
     fun addFavorite(userId: Int, mealId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-
             val currentFavorites = _favorites.value?.toMutableList() ?: mutableListOf()
             if (!currentFavorites.contains(mealId)) {
                 currentFavorites.add(mealId)
@@ -50,12 +44,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 userRepository.updateFavorites(userId, favoritesString)
                 _favorites.postValue(currentFavorites)
                 getFavorites(userId)
-
             }
-
         }
-
-
     }
 
     fun removeFavorite(userId: Int, mealId: Int) {
@@ -69,16 +59,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                 getFavorites(userId)
             }
         }
-
     }
 
     fun checkIfEmailExists(email: String) {
-       viewModelScope.launch(Dispatchers.IO) {
-          _emailExists.postValue(userRepository.checkIfEmailExists(email))
-       }
+        viewModelScope.launch(Dispatchers.IO) {
+            _emailExists.postValue(userRepository.checkIfEmailExists(email))
+        }
     }
-    fun checkIfEmailExistsBoolean(email: String):Boolean {
-    return userRepository.checkIfEmailExists(email)}
 
     fun getPasswordByEmail(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -86,6 +73,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun checkIfEmailExistsBoolean(email: String): Boolean {
+        var exists = false
+        viewModelScope.launch(Dispatchers.IO) {
+            exists = userRepository.checkIfEmailExists(email)
+        }
+        return exists
+    }
     fun getUserId(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _userId.postValue(userRepository.getUserId(email))

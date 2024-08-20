@@ -1,5 +1,7 @@
 package com.iti_project.recipeapp.RoomFolder.RoomFiles
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.TypeConverter
 
 class Converters {
@@ -13,7 +15,12 @@ class Converters {
         return if (data.isEmpty()) {
             emptyList()
         } else {
-            return  data.split(",").map { it.toInt() }
+            data.split(",").map { it.toInt() }
         }
+    }
+
+    fun toLiveDataListOfInt(data: String): LiveData<List<Int>> {
+        val list = toListOfInt(data)
+        return MutableLiveData(list)
     }
 }

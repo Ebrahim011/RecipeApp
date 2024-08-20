@@ -21,7 +21,7 @@ class LocalSource(private val userDao: UserDao) : LocalSourceInterface {
         }
     }
 
-    override fun getFavorites(userId: Int):String {
+    override fun getFavorites(userId: Int): LiveData<String> {
         return userDao.getFavorites(userId)
     }
 

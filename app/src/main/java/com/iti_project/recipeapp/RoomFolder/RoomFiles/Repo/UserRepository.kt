@@ -20,7 +20,7 @@ class UserRepository(private val localSource: LocalSourceInterface) : UserReposi
         }
     }
 
-    override fun getFavorites(userId: Int): String {
+    override fun getFavorites(userId: Int): LiveData<String>  {
         return localSource.getFavorites(userId)
     }
 

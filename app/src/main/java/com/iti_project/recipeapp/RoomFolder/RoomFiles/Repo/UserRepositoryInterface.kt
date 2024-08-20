@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
 
 interface UserRepositoryInterface {
-    fun getFavorites(userId: Int): String
+    fun getFavorites(userId: Int): LiveData<String>
     fun checkIfEmailExists(email: String): Boolean
     fun getPasswordByEmail(email: String): String?
     fun getUserId(email: String): Int?
