@@ -47,11 +47,14 @@ class RegisterFragment : Fragment() {
             var userName = binding.etUserName.text.toString()
 
             if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+
+
                 if(userViewModel.checkIfEmailExistsBoolean(email)){
                     Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
                     binding.etRegisterEmail.text.clear()
                     binding.etRegisterPassword.text.clear()
                     binding.etUserName.text.clear()
+                    return@setOnClickListener
                 }else {
                     val user = User(
                         userEmail = email,
