@@ -60,6 +60,19 @@
         app:layout_constraintTop_toBottomOf="@id/et_register_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/et_register_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_shape"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintTop_toBottomOf="@id/et_register_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
@@ -72,7 +85,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
 
-        app:layout_constraintTop_toBottomOf="@id/et_register_password"
+        app:layout_constraintTop_toBottomOf="@id/et_register_confirm_password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

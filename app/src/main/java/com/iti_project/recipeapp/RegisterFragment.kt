@@ -41,19 +41,42 @@ class RegisterFragment : Fragment() {
             binding.etRegisterPassword.setSelection(binding.etRegisterPassword.text.length)
             true
         }
+        binding.etRegisterConfirmPassword.setOnLongClickListener {
+
+            if (binding.etRegisterConfirmPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etRegisterConfirmPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                binding.etRegisterConfirmPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+            binding.etRegisterConfirmPassword.setSelection(binding.etRegisterPassword.text.length)
+            true
+        }
         binding.btnRegister.setOnClickListener {
+
+
             var email = binding.etRegisterEmail.text.toString()
             var password = binding.etRegisterPassword.text.toString()
             var userName = binding.etUserName.text.toString()
+            var confirmPassword = binding.etRegisterConfirmPassword.text.toString()
+            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()&&confirmPassword.isNotEmpty()) {
+                if (password != confirmPassword) {
 
-            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-
+                    Toast.makeText(
+                        requireContext(),
+                        "Confirm Password do not match",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.etRegisterPassword.text.clear()
+                    binding.etRegisterConfirmPassword.text.clear()
+                    return@setOnClickListener
+                }else{
 
                 if(userViewModel.checkIfEmailExistsBoolean(email)){
-                    Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
+                    binding.etRegisterEmail.error = "Email already exists"
                     binding.etRegisterEmail.text.clear()
                     binding.etRegisterPassword.text.clear()
                     binding.etUserName.text.clear()
+                    binding.etRegisterConfirmPassword.text.clear()
                     return@setOnClickListener
                 }else {
                     val user = User(
@@ -64,7 +87,7 @@ class RegisterFragment : Fragment() {
                     )
                     userViewModel.addAccount(user)
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                }}
+                }}}
                     else {
                         Toast.makeText(
                             requireContext(),

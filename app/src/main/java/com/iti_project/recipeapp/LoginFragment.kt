@@ -70,7 +70,9 @@ class LoginFragment : Fragment() {
             }
         }
         binding.registerHere.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+
+            findNavController().apply{
+                navigate(R.id.action_loginFragment_to_registerFragment)}
         }
         return binding.root
 

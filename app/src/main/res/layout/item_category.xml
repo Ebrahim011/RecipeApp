@@ -35,6 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/icon_loading"
+                    android:elevation="0dp"
                     android:scaleType="centerCrop" />
 
                 <!-- Black gradient overlay -->

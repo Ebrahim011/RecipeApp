@@ -1,4 +1,4 @@
-// RecipeActivity.kt
+
 package com.iti_project.recipeapp
 
 import android.content.Context
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +19,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iti_project.recipeapp.RoomFolder.UserViewModel
+import kotlinx.coroutines.launch
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -40,14 +42,13 @@ class RecipeActivity : AppCompatActivity() {
             setOf(R.id.catogriesFragment2, R.id.favoriteFragment, R.id.searchFragment)
         )
 
-        // Setup the Toolbar with NavController
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // Setup the BottomNavigationView with NavController
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
 
-        // Add a destination change listener to hide/show the bottom navigation bar
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.recipeDetailFragment || destination.id ==R.id.homeFragment) {
                 bottomNavigationView.visibility = View.GONE
@@ -55,15 +56,12 @@ class RecipeActivity : AppCompatActivity() {
                 bottomNavigationView.visibility = View.VISIBLE
             }
             if (destination.id == R.id.favoriteFragment || destination.id == R.id.recipeDetailFragment) {
-                {
-                    userViewModel.getFavorites(
-                        getSharedPreferences(
-                            "UserPrefs",
-                            Context.MODE_PRIVATE
-                        ).getInt("userId", -1)
-                    )
-                }
-
+                userViewModel.getFavorites(
+                            getSharedPreferences(
+                                "UserPrefs",
+                                Context.MODE_PRIVATE
+                            ).getInt("userId", -1)
+                        )
 
             }
         }
