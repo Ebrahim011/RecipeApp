@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:background="@drawable/appbar_shape"
+
         android:layout_height="wrap_content"
         android:id="@+id/appBar"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
@@ -37,7 +37,7 @@
         android:layout_height="70dp"
         android:layout_gravity="bottom"
         app:itemRippleColor="#FFFFFF"
-        android:background="@drawable/btm_nav_shape"
+
         app:menu="@menu/btm_nav_view_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
