@@ -45,23 +45,30 @@ class RegisterFragment : Fragment() {
             var email = binding.etRegisterEmail.text.toString()
             var password = binding.etRegisterPassword.text.toString()
             var userName = binding.etUserName.text.toString()
+            var confirmPassword = binding.etRegisterConfirmPassword.text.toString()
 
-            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                if(userViewModel.checkIfEmailExistsBoolean(email)){
-                    Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
-                    binding.etRegisterEmail.text.clear()
-                    binding.etRegisterPassword.text.clear()
-                    binding.etUserName.text.clear()
-                }else {
-                    val user = User(
-                        userEmail = email,
-                        userPassword = password,
-                        userName = userName,
-                        listOfFavorites = ""
-                    )
-                    userViewModel.addAccount(user)
-                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                }}
+            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+                if (password==confirmPassword){
+                    if(userViewModel.checkIfEmailExistsBoolean(email)){
+                        Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
+                        binding.etRegisterEmail.text.clear()
+                        binding.etRegisterPassword.text.clear()
+                        binding.etUserName.text.clear()
+                    }else {
+                        val user = User(
+                            userEmail = email,
+                            userPassword = password,
+                            userName = userName,
+                            listOfFavorites = ""
+                        )
+                        userViewModel.addAccount(user)
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    }
+                }
+                else{
+                    Toast.makeText(requireContext(), "Passwords Don't match", Toast.LENGTH_SHORT).show()
+                }
+                }
                     else {
                         Toast.makeText(
                             requireContext(),

@@ -59,10 +59,18 @@ class RecipeActivity : AppCompatActivity() {
                 val editor = sharedPreferences.edit()
                 editor.clear().apply()
 
-
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
+                true
+            }
+            R.id.action_about_the_creator -> {
+
+                val fragmentManger = supportFragmentManager
+                val transaction = fragmentManger.beginTransaction()
+                transaction.add(R.id.nav_host_fragment, AboutUsFragment(), "tag")
+                transaction.addToBackStack("backstack")
+                transaction.commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)

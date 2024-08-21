@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/appBar"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-        app:title="AppBar"
+        app:title="Home"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/option_menu"
         android:minHeight="?attr/actionBarSize"
