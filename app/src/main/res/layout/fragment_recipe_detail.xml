@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
             <ImageView
             android:id="@+id/mealImage"
+
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
@@ -30,9 +31,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                     android:layout_width="wrap_content"
+                     android:layout_width="0dp"
+                        android:layout_marginRight="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                      android:orientation="vertical"
+                      android:id="@+id/linear"
+                app:layout_constraintEnd_toStartOf="@id/favoriteCheckBox"
                      android:layout_height="match_parent">
         <TextView
             android:id="@+id/mealTitle"
@@ -43,40 +47,41 @@
             android:paddingTop="8dp"
 
             android:text="mealTitle"
-            android:textColor="@android:color/black" />
+            android:textColor="#129575" />
 
-        <TextView
-            android:id="@+id/mealCategory"
-            android:text="mealCategory"
+                <TextView
+                    android:id="@+id/mealCategory"
+                    android:layout_width="match_parent"
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingTop="4dp"
-            android:textColor="@android:color/black" />
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:text="mealCategory"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
-        <TextView
+                <TextView
             android:id="@+id/mealArea"
             android:text="mealArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:paddingTop="4dp"
-            android:textColor="@android:color/black" />
+            android:textColor="#129575" />
     </LinearLayout>
 
             <CheckBox
+                android:id="@+id/favoriteCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:background="@drawable/selector_fav_item"
-                android:id="@+id/favoriteCheckBox"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginEnd="20dp"
-               />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:background="@drawable/selector_fav_item"
+                android:button="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/mealInstructions"
@@ -91,16 +96,18 @@
             android:textColor="@android:color/black" />
 
         <!-- Ingredients and Measures -->
+
         <TextView
             android:id="@+id/ingredientsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:text="Ingredients"
+            android:textColor="#129575"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingTop="16dp"
-            android:textColor="@android:color/black"
-             />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="wrap_content"

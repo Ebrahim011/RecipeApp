@@ -72,7 +72,11 @@ class RegisterFragment : Fragment() {
                 }else{
 
                 if(userViewModel.checkIfEmailExistsBoolean(email)){
-                    binding.etRegisterEmail.error = "Email already exists"
+                    Toast.makeText(
+                        requireContext(),
+                        "Email already exists",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     binding.etRegisterEmail.text.clear()
                     binding.etRegisterPassword.text.clear()
                     binding.etUserName.text.clear()
