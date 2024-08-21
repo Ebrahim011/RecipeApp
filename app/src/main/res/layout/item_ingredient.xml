@@ -13,7 +13,7 @@
         android:id="@+id/ingredientName"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:gravity="center"
         android:layout_weight="1"
         android:textColor="@color/black" />
@@ -24,8 +24,8 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         android:layout_height="0dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:textColor="#129575" />
 </LinearLayout>
