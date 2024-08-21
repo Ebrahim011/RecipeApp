@@ -49,6 +49,16 @@
             android:text="mealTitle"
             android:textColor="#129575" />
 
+
+                <TextView
+                    android:id="@+id/mealArea"
+                    android:text="mealArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingTop="4dp"
+                    android:textColor="#129575" />
+
                 <TextView
                     android:id="@+id/mealCategory"
                     android:layout_width="match_parent"
@@ -59,14 +69,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <TextView
-            android:id="@+id/mealArea"
-            android:text="mealArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingTop="4dp"
-            android:textColor="#129575" />
     </LinearLayout>
 
             <CheckBox
@@ -117,15 +119,18 @@
             android:padding="8dp"
             android:scrollbars="horizontal"
             />
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:padding="3dp"
+            android:background="#129575"
+            android:layout_height="301dp">
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_margin="8dp"
             android:background="@color/black" />
 
-
+        </FrameLayout>
 
 
 </LinearLayout>
