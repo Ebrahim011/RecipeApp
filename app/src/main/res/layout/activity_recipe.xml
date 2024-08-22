@@ -39,7 +39,7 @@
         android:layout_gravity="bottom"
         android:backgroundTint="#129575"
         android:background="@drawable/appbar_shape"
-        app:itemIconTint="#129575"
+        app:itemIconTint="#106C56"
         app:itemTextColor="#129575"
         app:itemRippleColor="#129575"
         app:menu="@menu/btm_nav_view_menu"
