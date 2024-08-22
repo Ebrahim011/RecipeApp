@@ -46,4 +46,13 @@ class RemoteDataSource : IRemoteDataSource {
             emptyList()
         }
     }
+
+    override suspend fun getRandomMeal(): mealfulldetailResponse {
+        return try {
+            RetrofitClient.getService().getRandomMeal()
+        } catch (e: Exception) {
+            Log.e("RemoteDataSource", "Error fetching random meal", e)
+            mealfulldetailResponse(emptyList())
+        }
+    }
 }

@@ -15,6 +15,10 @@
         <argument
             android:name="Category"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_catogriesFragment2_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 
     <fragment
@@ -33,10 +37,6 @@
                 android:name="Meal_ID"
                 app:argType="string" />
         </action>
-        <action
-            android:id="@+id/action_homeFragment_to_aboutTheCreatorFragment"
-            app:destination="@id/aboutTheCreatorFragment"
-           />
     </fragment>
 
     <fragment
@@ -76,8 +76,8 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/aboutTheCreatorFragment"
-        android:name="com.iti_project.recipeapp.AboutTheCreatorFragment"
-        android:label="fragment_about_the_creator"
-        tools:layout="@layout/fragment_about_the_creator" />
+        android:id="@+id/aboutUsFragment"
+        android:name="com.iti_project.recipeapp.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

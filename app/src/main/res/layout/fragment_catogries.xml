@@ -1,16 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".CatogriesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCatogries"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:scrollbars="vertical"
-        />
-</FrameLayout>
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:background="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/cardView"
+
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="20dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:background="@color/black"
+                android:layout_height="match_parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationViewCatogry"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_rawRes="@raw/see_our_chef_today_special" />
+
+                <TextView
+                    android:id="@+id/tvCatogryTitle"
+                    android:layout_width="0dp"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/white"
+                    android:paddingStart="8dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/btnExplore"
+                    android:layout_marginTop="16dp"
+                    android:text="Cook with our chef today his unique dish!"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/lottieAnimationViewCatogry"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnExplore"
+                    android:layout_margin="15dp"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="Explore the dish"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/lottieAnimationViewCatogry"
+                    app:layout_constraintHorizontal_bias="0.508"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCatogryTitle"
+                    app:layout_constraintVertical_bias="0.764" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_marginEnd="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F899C1"
+                    android:orientation="vertical">
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/chef_fav"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnFav"
+                        android:layout_margin="5dp"
+                        android:text="Check your Favorites" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F9AA0A"
+                    android:orientation="vertical">
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="2dp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/search_a"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnSearch"
+                        android:textColor="#393838"
+                        android:backgroundTint="#FFEA00"
+                        android:layout_margin="5dp"
+                        android:text="Search in Meals" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            android:id="@+id/tvCatogries"
+            android:layout_margin="15dp"
+            android:text="Check Our Catogries"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/catogries"
+            app:layout_constraintTop_toBottomOf="@+id/tvCatogries"
+            android:id="@+id/AnimCatogry2"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCatogries"
+            app:layout_constraintTop_toBottomOf="@+id/AnimCatogry2"
+            android:layout_width="wrap_content"
+            android:layout_height="1800dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_gravity="center"
+            android:background="@color/white"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

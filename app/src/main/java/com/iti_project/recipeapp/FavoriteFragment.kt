@@ -41,6 +41,8 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
         val userId = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getInt("userId", -1)
         userViewModel.getFavorites(userId)
             userViewModel.favorites.observe(viewLifecycleOwner) { favList ->
+                favoriteAdapter.updateMeals(emptyList())
+
                 if (favList.isNotEmpty()) {
                     fetchFavoriteMeals(favList)
                 }else{

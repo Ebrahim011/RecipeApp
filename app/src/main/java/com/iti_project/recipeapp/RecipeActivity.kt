@@ -49,20 +49,29 @@ class RecipeActivity : AppCompatActivity() {
 
         // Add a destination change listener to hide/show the bottom navigation bar
         navController.addOnDestinationChangedListener { _, destination, _ ->
+
+
+            userViewModel.getFavorites(
+                getSharedPreferences(
+                    "UserPrefs",
+                    Context.MODE_PRIVATE
+                ).getInt("userId", -1)
+            )
+
+
+            if (destination.id == R.id.catogriesFragment2) {
+                toolbar.visibility = View.GONE
+            } else {
+                toolbar.visibility = View.VISIBLE
+            }
+
+
             if (destination.id == R.id.recipeDetailFragment || destination.id ==R.id.homeFragment) {
                 bottomNavigationView.visibility = View.GONE
             } else {
                 bottomNavigationView.visibility = View.VISIBLE
             }
-            if (destination.id == R.id.favoriteFragment || destination.id == R.id.recipeDetailFragment) {
-                    userViewModel.getFavorites(
-                        getSharedPreferences(
-                            "UserPrefs",
-                            Context.MODE_PRIVATE
-                        ).getInt("userId", -1)
-                    )
 
-            }
         }
     }
 
@@ -87,6 +96,12 @@ class RecipeActivity : AppCompatActivity() {
                 finish()
                 true
             }
+
+        R.id.action_about_the_creator -> {
+
+            navController.navigate(R.id.aboutUsFragment)
+            true
+        }
             else -> super.onOptionsItemSelected(item)
         }
     }

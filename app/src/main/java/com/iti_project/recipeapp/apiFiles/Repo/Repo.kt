@@ -22,4 +22,8 @@ class Repo(private val remoteDataSource: IRemoteDataSource = RemoteDataSource())
     override suspend fun searchMealsByName(name: String): List<Meal> {
         return remoteDataSource.searchMealsByName(name)
     }
+
+    override suspend fun getRandomMeal(): mealfulldetailResponse {
+        return remoteDataSource.getRandomMeal()
+    }
 }

@@ -9,4 +9,5 @@ interface IRepo {
     suspend fun getMealDetailsById(id: String): mealfulldetailResponse
     suspend fun getCategoryList(): CategoryList
     suspend fun searchMealsByName(name: String): List<Meal>
+    suspend fun getRandomMeal(): mealfulldetailResponse
 }

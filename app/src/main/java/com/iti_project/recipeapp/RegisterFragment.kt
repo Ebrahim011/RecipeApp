@@ -4,20 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.iti_project.recipeapp.RoomFolder.RoomFiles.User
 import com.iti_project.recipeapp.RoomFolder.UserViewModel
 import com.iti_project.recipeapp.databinding.FragmentRegisterBinding
-import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -31,58 +28,59 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
+        // Toggle password visibility on long click
         binding.etRegisterPassword.setOnLongClickListener {
-
-            if (binding.etRegisterPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                binding.etRegisterPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            } else {
-                binding.etRegisterPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            }
-            binding.etRegisterPassword.setSelection(binding.etRegisterPassword.text.length)
+            togglePasswordVisibility(binding.etRegisterPassword)
             true
         }
         binding.etRegisterConfirmPassword.setOnLongClickListener {
-
-            if (binding.etRegisterConfirmPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                binding.etRegisterConfirmPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            } else {
-                binding.etRegisterConfirmPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            }
-            binding.etRegisterConfirmPassword.setSelection(binding.etRegisterPassword.text.length)
+            togglePasswordVisibility(binding.etRegisterConfirmPassword)
             true
         }
+
         binding.btnRegister.setOnClickListener {
+            val email = binding.etRegisterEmail.text.toString()
+            val password = binding.etRegisterPassword.text.toString()
+            val userName = binding.etUserName.text.toString()
+            val confirmPassword = binding.etRegisterConfirmPassword.text.toString()
 
+            // Regex patterns for validation
+            val emailRegex = Regex("^[a-zA-Z0-9_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+            val passwordRegex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,12}$")
+            val userNameRegex = Regex("^[a-zA-Z_]+$")
 
-            var email = binding.etRegisterEmail.text.toString()
-            var password = binding.etRegisterPassword.text.toString()
-            var userName = binding.etUserName.text.toString()
-            var confirmPassword = binding.etRegisterConfirmPassword.text.toString()
-            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()&&confirmPassword.isNotEmpty()) {
-                if (password != confirmPassword) {
+            // Clear previous error messages
+            binding.tvEmailHelper.visibility = View.GONE
+            binding.tvPasswordHelper.visibility = View.GONE
+            binding.tvConfirmPasswordHelper.visibility = View.GONE
 
-                    Toast.makeText(
-                        requireContext(),
-                        "Confirm Password do not match",
-                        Toast.LENGTH_SHORT
-                    ).show()
+            // Input validation
+            when {
+                userName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                }
+                !email.matches(emailRegex) -> {
+                    binding.tvEmailHelper.text = "Please enter a valid email address."
+                    binding.tvEmailHelper.visibility = View.VISIBLE
+                }
+                !password.matches(passwordRegex) -> {
+                    binding.tvPasswordHelper.text = "Password must be 6-12 characters, including at least one uppercase letter, one lowercase letter, and one number."
+                    binding.tvPasswordHelper.visibility = View.VISIBLE
+                }
+                password != confirmPassword -> {
+                    binding.tvConfirmPasswordHelper.text = "Confirm Password does not match the Password."
+                    binding.tvConfirmPasswordHelper.visibility = View.VISIBLE
                     binding.etRegisterPassword.text.clear()
                     binding.etRegisterConfirmPassword.text.clear()
-                    return@setOnClickListener
-                }else{
-
-                if(userViewModel.checkIfEmailExistsBoolean(email)){
-                    Toast.makeText(
-                        requireContext(),
-                        "Email already exists",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                }
+                userViewModel.checkIfEmailExistsBoolean(email) -> {
+                    Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show()
                     binding.etRegisterEmail.text.clear()
                     binding.etRegisterPassword.text.clear()
                     binding.etUserName.text.clear()
                     binding.etRegisterConfirmPassword.text.clear()
-                    return@setOnClickListener
-                }else {
+                }
+                else -> {
                     val user = User(
                         userEmail = email,
                         userPassword = password,
@@ -91,19 +89,24 @@ class RegisterFragment : Fragment() {
                     )
                     userViewModel.addAccount(user)
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                }}}
-                    else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Please fill in all fields",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
+                }
+            }
         }
+
         binding.loginHere.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
+
         return binding.root
+    }
+
+    // Function to toggle password visibility
+    private fun togglePasswordVisibility(editText: EditText) {
+        if (editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        } else {
+            editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        }
+        editText.setSelection(editText.text.length)
     }
 }

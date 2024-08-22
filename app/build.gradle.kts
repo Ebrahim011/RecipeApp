@@ -72,4 +72,5 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.2")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.2")
+    implementation("com.airbnb.android:lottie:4.2.2")
 }
