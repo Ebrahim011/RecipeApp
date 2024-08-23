@@ -43,4 +43,17 @@ class UserRepository(private val localSource: LocalSourceInterface) : UserReposi
     override fun updateFavorites(userId: Int, favorites: String) {
         localSource.updateFavorites(userId, favorites)
     }
+    //nader
+
+    override fun updateProfile(userInfo: User) {
+        localSource.updateProfile(userInfo)
+    }
+
+    override fun getUserByEmail(email: String): LiveData<User> {
+        return localSource.getUserByEmail(email)
+    }
+
+    override fun getUserById(userId: Int): LiveData<User> {
+        return localSource.getUserById(userId)
+    }
 }

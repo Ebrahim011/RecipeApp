@@ -10,4 +10,8 @@ interface LocalSourceInterface {
     fun getUserId(email: String): Int?
     fun addAccount(user: User)
     fun updateFavorites(userId: Int, favorites: String)
+    //nader
+    fun updateProfile(userInfo : User)
+    fun getUserByEmail(email: String): LiveData<User>
+    fun getUserById(userId: Int): LiveData<User>
 }

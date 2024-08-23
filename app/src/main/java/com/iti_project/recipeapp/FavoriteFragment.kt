@@ -75,6 +75,16 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        userViewModel.getFavorites(
+            requireContext().getSharedPreferences(
+                "UserPrefs",
+                Context.MODE_PRIVATE
+            ).getInt("userId", -1)
+        )
+    }
+
 
 }
 

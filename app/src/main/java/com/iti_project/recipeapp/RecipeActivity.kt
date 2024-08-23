@@ -37,7 +37,7 @@ class RecipeActivity : AppCompatActivity() {
 
         // Setup the AppBarConfiguration
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.catogriesFragment2, R.id.favoriteFragment, R.id.searchFragment)
+            setOf(R.id.catogriesFragment2, R.id.favoriteFragment, R.id.searchFragment, R.id.profileFragment)
         )
 
         // Setup the Toolbar with NavController
@@ -50,23 +50,12 @@ class RecipeActivity : AppCompatActivity() {
         // Add a destination change listener to hide/show the bottom navigation bar
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
-
-            userViewModel.getFavorites(
-                getSharedPreferences(
-                    "UserPrefs",
-                    Context.MODE_PRIVATE
-                ).getInt("userId", -1)
-            )
-
-
             if (destination.id == R.id.catogriesFragment2) {
                 toolbar.visibility = View.GONE
             } else {
-                toolbar.visibility = View.VISIBLE
-            }
-
-
-            if (destination.id == R.id.recipeDetailFragment || destination.id ==R.id.homeFragment) {
+                toolbar.visibility = View.VISIBLE }
+            userViewModel.getFavorites(getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getInt("userId", -1))
+            if (destination.id == R.id.recipeDetailFragment || destination.id ==R.id.homeFragment || destination.id == R.id.aboutUsFragment) {
                 bottomNavigationView.visibility = View.GONE
             } else {
                 bottomNavigationView.visibility = View.VISIBLE

@@ -44,4 +44,17 @@ class LocalSource(private val userDao: UserDao) : LocalSourceInterface {
     override fun updateFavorites(userId: Int, favorites: String) {
         userDao.updateFavorites(userId, favorites)
     }
+
+    //nader
+    override fun updateProfile(userInfo: User) {
+        userDao.update(userInfo)
+    }
+
+    override fun getUserByEmail(email: String): LiveData<User> {
+        return userDao.getUserByEmail(email)
+    }
+
+    override fun getUserById(userId: Int): LiveData<User> {
+        return userDao.getUserById(userId)
+    }
 }

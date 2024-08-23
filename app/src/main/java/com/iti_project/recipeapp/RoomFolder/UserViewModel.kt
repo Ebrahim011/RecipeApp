@@ -88,4 +88,18 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
             userRepository.addAccount(user)
         }
     }
+
+    //nader
+    fun updateProfile(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.updateProfile(user)
+        }
+    }
+    fun getUserByEmail(email: String): LiveData<User> {
+        return userRepository.getUserByEmail(email)
+    }
+
+    fun getUserById(userId: Int): LiveData<User> {
+        return userRepository.getUserById(userId)
+    }
 }
