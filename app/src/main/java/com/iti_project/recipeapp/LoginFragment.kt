@@ -55,6 +55,7 @@ class LoginFragment : Fragment() {
                         if (password == savedPassword && userId != null) {
                             val editor = sharedPreferences.edit()
                             editor.putInt("userId", userId)
+                            editor.putString("userEmail", email) // Save the email
                             editor.apply()
                             Toast.makeText(requireContext(), "Logged in successfully", Toast.LENGTH_SHORT).show()
                             val intent = Intent(requireActivity(), RecipeActivity::class.java)

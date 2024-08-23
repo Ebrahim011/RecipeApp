@@ -23,4 +23,14 @@ interface UserDao {
 
  @Query("UPDATE user SET list_of_favorites = :favorites WHERE _id = :userId")
  fun updateFavorites(userId: Int, favorites: String)
+
+ //nader
+ @Update
+ fun update(userInfo: User)
+
+ @Query("SELECT * FROM user WHERE user_email = :email")
+ fun getUserByEmail(email: String): LiveData<User>
+
+ @Query("SELECT * FROM user WHERE _id = :userId")
+ fun getUserById(userId: Int): LiveData<User>
 }

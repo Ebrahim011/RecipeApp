@@ -80,4 +80,9 @@
         android:name="com.iti_project.recipeapp.AboutUsFragment"
         android:label="About The Creator"
         tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.iti_project.recipeapp.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
