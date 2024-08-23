@@ -24,6 +24,26 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var favoriteAdapter: FavoriteAdapter
 
+    override fun onStart() {
+        super.onStart()
+
+        userViewModel.getFavorites(
+            requireContext().getSharedPreferences(
+                "UserPrefs",
+                Context.MODE_PRIVATE
+            ).getInt("userId", -1)
+        )
+    }
+    override fun onResume() {
+        super.onResume()
+        userViewModel.getFavorites(
+            requireContext().getSharedPreferences(
+                "UserPrefs",
+                Context.MODE_PRIVATE
+            ).getInt("userId", -1)
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,15 +95,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        userViewModel.getFavorites(
-            requireContext().getSharedPreferences(
-                "UserPrefs",
-                Context.MODE_PRIVATE
-            ).getInt("userId", -1)
-        )
-    }
+
 
 
 }
