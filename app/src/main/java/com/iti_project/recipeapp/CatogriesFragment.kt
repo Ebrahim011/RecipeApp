@@ -37,7 +37,7 @@ class CatogriesFragment : Fragment(), CategoryAdapter.OnItemClickListener {
         btnFav=view.findViewById(R.id.btnFav)
         btnSearch=view.findViewById(R.id.btnSearch)
         recyclerView = view.findViewById(R.id.recyclerViewCatogries)
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         btnExplore.setOnClickListener {
             viewModel.oneRandomMeal.observe(viewLifecycleOwner, Observer { meal ->

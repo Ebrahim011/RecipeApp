@@ -22,7 +22,8 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     private val userViewModel: UserViewModel by viewModels()
     private val mealViewModel: MealViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private
+    lateinit var favoriteAdapter: FavoriteAdapter
 
     override fun onStart() {
         super.onStart()
