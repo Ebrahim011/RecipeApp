@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="?android:colorBackground"
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
@@ -16,7 +17,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/ingredient_card_background"
         android:hint="Search"
-        android:textColor="@color/black"
+
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -28,7 +29,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@color/white"
+
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

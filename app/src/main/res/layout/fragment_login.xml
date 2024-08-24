@@ -36,17 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/baseline_email_24"
-        app:layout_constraintTop_toTopOf="@id/et_email"
-        app:layout_constraintBottom_toBottomOf="@id/et_email"
-        app:layout_constraintEnd_toEndOf="@id/et_email" />
-
-    <EditText
+        <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -60,16 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/baseline_password"
-        app:layout_constraintTop_toTopOf="@id/et_password"
-        app:layout_constraintBottom_toBottomOf="@id/et_password"
-        app:layout_constraintEnd_toEndOf="@id/et_password" />
-
-    <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,7 +79,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account?  "
-            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView

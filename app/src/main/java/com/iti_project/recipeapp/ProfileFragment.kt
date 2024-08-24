@@ -50,8 +50,6 @@ class ProfileFragment : Fragment() {
                 binding.editUsername.setText(user.userName)
                 binding.editEmail.setText(user.userEmail)
                 binding.editPassword.setText(user.userPassword)
-            } else {
-                Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -101,12 +99,8 @@ class ProfileFragment : Fragment() {
                         val intent = Intent(context, MainActivity::class.java)
                         startActivity(intent)
                         requireActivity().finish()
-                    } else {
-                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
                     }
                 }
-            } else {
-                Toast.makeText(requireContext(), "Please correct the errors", Toast.LENGTH_SHORT).show()
             }
         }
     }

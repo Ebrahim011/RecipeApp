@@ -4,22 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?android:colorBackground"
+
     tools:context=".RecipeActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        app:titleTextColor="#129575"
-        android:background="@drawable/appbar_shape"
         android:layout_height="wrap_content"
         android:id="@+id/appBar"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        android:theme="@style/Widget.AppCompat.ActionBar"
         app:title="AppBar"
+        android:background="?android:colorBackground"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="30dp"
         app:menu="@menu/option_menu"
         android:minHeight="?attr/actionBarSize"
-        android:popupTheme="@style/OptionsMenuText"
-        />
+        android:popupTheme="@style/OptionsMenuText">
+
+        <ImageButton
+            android:id="@+id/toggleDarkMode"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_sun" />
+    </androidx.appcompat.widget.Toolbar>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -38,9 +48,7 @@
         android:layout_height="70dp"
         android:layout_gravity="bottom"
         android:backgroundTint="#129575"
-        android:background="@drawable/appbar_shape"
-        app:itemIconTint="#106C56"
-        app:itemTextColor="#129575"
+
         app:itemRippleColor="#129575"
         app:menu="@menu/btm_nav_view_menu"
         app:layout_constraintBottom_toBottomOf="parent"
