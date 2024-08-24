@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/catogriesFragment2"
         android:name="com.iti_project.recipeapp.CatogriesFragment"
-        android:label="Categories"
+        android:label=" Home"
         tools:layout="@layout/fragment_catogries" >
         <action
             android:id="@+id/action_catogriesFragment2_to_homeFragment"
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.iti_project.recipeapp.HomeFragment"
-        android:label="Choose your meal"
+        android:label=" Choose your meal"
         tools:layout="@layout/fragment_home" >
         <argument
             android:name="Category"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.iti_project.recipeapp.FavoriteFragment"
-        android:label="Favorites"
+        android:label=" Favorites"
         tools:layout="@layout/fragment_favorite" >
         <action
             android:id="@+id/action_favoriteFragment_to_recipeDetailFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.iti_project.recipeapp.SearchFragment"
-        android:label="Search"
+        android:label=" Search"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_recipeDetailFragment"
@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="com.iti_project.recipeapp.RecipeDetailFragment"
-        android:label="Recipe Detail"
+        android:label=" Recipe Details"
         tools:layout="@layout/fragment_recipe_detail" >
         <argument
             android:name="Meal_ID"
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.iti_project.recipeapp.AboutUsFragment"
-        android:label="About The Creator"
+        android:label=" About The Creator"
         tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/profileFragment"

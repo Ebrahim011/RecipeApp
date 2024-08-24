@@ -81,11 +81,7 @@ class RecipeActivity : AppCompatActivity() {
 
         // Add a destination change listener to hide/show the bottom navigation bar
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.catogriesFragment2) {
-                toolbar.visibility = View.GONE
-            } else {
-                toolbar.visibility = View.VISIBLE
-            }
+
             userViewModel.getFavorites(getSharedPreferences("UserPrefs", Context.MODE_PRIVATE).getInt("userId", -1))
             if (destination.id == R.id.recipeDetailFragment || destination.id == R.id.homeFragment || destination.id == R.id.aboutUsFragment) {
                 bottomNavigationView.visibility = View.GONE

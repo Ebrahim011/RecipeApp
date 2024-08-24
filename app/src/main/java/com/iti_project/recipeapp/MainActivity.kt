@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
         // Check theme state from SharedPreferences
         val sharedPreferences = getSharedPreferences("UserTheme", Context.MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("isDarkMode", false)
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity", "Dark mode is off")
         }
 
-
+        setContentView(R.layout.activity_main)
     }
 
     fun finishMain() {
