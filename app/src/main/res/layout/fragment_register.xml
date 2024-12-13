@@ -30,7 +30,7 @@
             android:inputType="textPersonName"
             android:layout_marginTop="100dp"
             android:background="@drawable/edit_text_shape"
-
+            android:hint="User Name"
             android:paddingHorizontal="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

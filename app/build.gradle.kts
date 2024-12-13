@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.iti_project.recipeapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.iti_project.recipeapp"
