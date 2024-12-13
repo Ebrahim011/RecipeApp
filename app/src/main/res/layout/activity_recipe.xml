@@ -10,7 +10,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/appBar"
-
+    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorBackground"
@@ -39,6 +39,7 @@
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
+
         android:layout_height="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav"
@@ -55,6 +56,7 @@
         android:backgroundTint="#129575"
         android:background="?android:colorBackground"
         app:itemRippleColor="#129575"
+        app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
         app:menu="@menu/btm_nav_view_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

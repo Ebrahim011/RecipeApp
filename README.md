@@ -67,7 +67,7 @@ To get started with the project:
    - Run the app from Android Studio.
 
 ## Screenshots
-![App Screenshot](https://github.com/user-attachments/assets/d9cc979f-630b-4389-b647-14c52fe1d099)
+![App Screenshot](/screen.jpg)
 
 ## Architecture
 The app follows the MVVM (Model-View-ViewModel) architecture pattern, which helps in separating the business logic from the UI and makes the codebase more maintainable and scalable.
