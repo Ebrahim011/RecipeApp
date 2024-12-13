@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
@@ -9,6 +8,6 @@ buildscript {
         google()
     }
     dependencies {
-        classpath (libs.androidx.navigation.safe.args.gradle.plugin)
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
     }
 }

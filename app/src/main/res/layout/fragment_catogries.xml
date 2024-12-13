@@ -186,7 +186,7 @@
             android:id="@+id/recyclerViewCatogries"
             app:layout_constraintTop_toBottomOf="@+id/AnimCatogry2"
             android:layout_width="0dp"
-            android:layout_height="775dp"
+            android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
