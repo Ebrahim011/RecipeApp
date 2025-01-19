@@ -4,73 +4,68 @@
     android:layout_height="wrap_content"
     android:background="?android:colorBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ScrollView
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            app:cardCornerRadius="20dp"
-            android:layout_height="wrap_content">
-            <ImageView
-            android:id="@+id/mealImage"
-
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_loading" />
-        </androidx.cardview.widget.CardView>
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                     android:layout_width="0dp"
-                        android:layout_marginRight="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                     android:orientation="vertical"
-                      android:id="@+id/linear"
-                app:layout_constraintEnd_toStartOf="@id/favoriteCheckBox"
-                     android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/mealTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
+            android:padding="16dp">
 
-            android:text="mealTitle"
-            android:textColor="#129575" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-
-                <TextView
-                    android:id="@+id/mealArea"
-                    android:text="mealArea"
+                <ImageView
+                    android:id="@+id/mealImage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:paddingTop="4dp"
-                    android:textColor="#129575" />
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_loading" />
+            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/mealCategory"
-                    android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/mealTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingTop="8dp"
+                android:text="mealTitle"
+                android:textColor="#129575"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/favoriteCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView" />
 
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="mealCategory"
+            <TextView
+                android:id="@+id/mealArea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:text="mealArea"
+                android:textColor="#129575"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/favoriteCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mealTitle" />
 
-                    android:textSize="18sp" />
-
-    </LinearLayout>
+            <TextView
+                android:id="@+id/mealCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:text="mealCategory"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/favoriteCheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mealArea" />
 
             <CheckBox
                 android:id="@+id/favoriteCheckBox"
@@ -79,86 +74,69 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/selector_fav_item"
                 android:button="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mealTitle" />
 
-                app:layout_constraintTop_toTopOf="parent"
-                />
+            <TextView
+                android:id="@+id/mealInstructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:paddingTop="8dp"
+                android:text="@string/description_example"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/mealCategory" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@id/mealInstructions"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/chefsecrets" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Cook Up Something Extraordinary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/animationView" />
+
+            <TextView
+                android:id="@+id/ingredientsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:paddingTop="16dp"
+                android:text="Used Ingredients"
+                android:textColor="#129575"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/textView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredientsRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:padding="8dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ingredientsTitle"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/ingredientsRecyclerView" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/mealInstructions"
-            android:text= "@string/description_example"
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-
-            android:textSize="16sp"
-            android:paddingTop="8dp"
-            android:layout_margin="15dp"
-     />
-
-        <!-- Ingredients and Measures -->
-
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:scaleType="centerCrop"
-
-            app:lottie_autoPlay="true"
-            app:lottie_loop="false"
-            app:lottie_rawRes="@raw/chefsecrets" />
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Cook Up Something Extraordinary"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/animationView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-
-        <TextView
-            android:id="@+id/ingredientsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:layout_marginTop="20dp"
-            android:text="Used Ingredients"
-            android:layout_marginBottom="5dp"
-            android:textColor="#129575"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:id="@+id/ingredientsRecyclerView"
-            android:padding="8dp"
-            android:scrollbars="horizontal"
-            />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/black" />
-
-
-
-
-</LinearLayout>
-</ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

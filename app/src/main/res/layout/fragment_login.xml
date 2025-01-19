@@ -65,9 +65,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linear"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50dp"
         android:orientation="horizontal"
@@ -78,19 +78,23 @@
         <TextView
             android:id="@+id/tv_dont_have_acc"
             android:layout_width="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/register_here"
             android:layout_height="wrap_content"
             android:text="Don't have an account?  "
+            app:layout_constraintStart_toStartOf="parent"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/register_here"
+            app:layout_constraintStart_toEndOf="@id/tv_dont_have_acc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="5dp"
             android:text="Register here"
             android:textColor="#129575"
             android:textSize="20sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
