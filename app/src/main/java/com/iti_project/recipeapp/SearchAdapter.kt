@@ -33,6 +33,8 @@ class SearchAdapter(
         holder.mealTitle.text = meal.strMeal
         Glide.with(holder.itemView.context)
             .load(meal.strMealThumb)
+            .placeholder(R.drawable.foodplaceholder)
+            .error(R.drawable.foodplaceholder)
             .into(holder.mealImage)
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClick(meal)

@@ -18,14 +18,15 @@ import com.iti_project.recipeapp.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var binding: FragmentRegisterBinding
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
     private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
         // Toggle password visibility on long click
@@ -98,6 +99,31 @@ class RegisterFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        _binding?.let {
+            outState.putString("email", it.etRegisterEmail.text.toString())
+            outState.putString("password", it.etRegisterPassword.text.toString())
+            outState.putString("confirmPassword", it.etRegisterConfirmPassword.text.toString())
+            outState.putString("userName", it.etUserName.text.toString())
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            binding.etRegisterEmail.setText(it.getString("email"))
+            binding.etRegisterPassword.setText(it.getString("password"))
+            binding.etRegisterConfirmPassword.setText(it.getString("confirmPassword"))
+            binding.etUserName.setText(it.getString("userName"))
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     // Function to toggle password visibility

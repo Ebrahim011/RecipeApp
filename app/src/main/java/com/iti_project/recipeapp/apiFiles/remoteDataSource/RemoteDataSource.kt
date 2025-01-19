@@ -1,20 +1,25 @@
 package com.iti_project.recipeapp.apiFiles.remoteDataSource
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.iti_project.recipeapp.apiFiles.RetrofitClient
 import com.iti_project.recipeapp.apiFiles.catogries.CategoryList
 import com.iti_project.recipeapp.mealCatogry.Meal
 import com.iti_project.recipeapp.mealCatogry.MealListResponse
 import com.iti_project.recipeapp.mealFullDetail.mealfulldetailResponse
 
-
 class RemoteDataSource : IRemoteDataSource {
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
+
     override suspend fun getMealsByCategory(category: String): List<Meal> {
         return try {
             val response: MealListResponse = RetrofitClient.getService().getMealsByCategory(category)
             response.meals
         } catch (e: Exception) {
             Log.e("RemoteDataSource", "Error fetching meals by category", e)
+            _errorMessage.postValue("Error fetching meals by category")
             emptyList()
         }
     }
@@ -24,6 +29,7 @@ class RemoteDataSource : IRemoteDataSource {
             RetrofitClient.getService().getMealDetailsById(id)
         } catch (e: Exception) {
             Log.e("RemoteDataSource", "Error fetching meal details by ID", e)
+            _errorMessage.postValue("Error fetching meal details by ID")
             mealfulldetailResponse(emptyList())
         }
     }
@@ -33,6 +39,7 @@ class RemoteDataSource : IRemoteDataSource {
             RetrofitClient.getService().getCategoryList()
         } catch (e: Exception) {
             Log.e("RemoteDataSource", "Error fetching category list", e)
+            _errorMessage.postValue("Error fetching category list")
             CategoryList(emptyList())
         }
     }
@@ -43,6 +50,7 @@ class RemoteDataSource : IRemoteDataSource {
             response.meals
         } catch (e: Exception) {
             Log.e("RemoteDataSource", "Error searching meals by name", e)
+            _errorMessage.postValue("Error searching meals by name")
             emptyList()
         }
     }
@@ -52,6 +60,7 @@ class RemoteDataSource : IRemoteDataSource {
             RetrofitClient.getService().getRandomMeal()
         } catch (e: Exception) {
             Log.e("RemoteDataSource", "Error fetching random meal", e)
+            _errorMessage.postValue("Error fetching random meal")
             mealfulldetailResponse(emptyList())
         }
     }
